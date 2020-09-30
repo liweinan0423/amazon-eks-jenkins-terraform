@@ -39,6 +39,9 @@ resource "aws_instance" "jenkins-instance" {
   user_data = "${file("install_jenkins.sh")}"
 
   associate_public_ip_address = true
+  root_block_device {
+    delete_on_termination = false
+  }
   tags = {
     Name = "Jenkins-Instance"
   }
@@ -48,7 +51,6 @@ resource "aws_security_group" "sg_allow_ssh_jenkins" {
   name        = "allow_ssh_jenkins"
   description = "Allow SSH and Jenkins inbound traffic"
   vpc_id      = "${aws_vpc.development-vpc.id}"
-
   ingress {
     from_port   = 22
     to_port     = 22
