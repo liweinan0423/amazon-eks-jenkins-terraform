@@ -44,6 +44,7 @@ resource "aws_instance" "jenkins-instance" {
   }
   tags = {
     Name = "Jenkins-Instance"
+    Owner = "TOC QA Lab - Li Weinan"
   }
 }
 
