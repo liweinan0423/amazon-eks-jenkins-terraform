@@ -16,18 +16,6 @@ data "aws_ami" "amazon-linux-2" {
   }
 }
 
-data "aws_route53_zone" "toc_zone" {
-  name = "toc-platform.com."
-}
-
-resource "aws_route53_record" "jenkins_subdomain" {
-  zone_id = data.aws_route53_zone.toc_zone.id
-  name = "qalab-jenkins.toc-platform.com"
-  type = "A"
-  ttl = "60"
-  records = [aws_instance.jenkins-instance.public_ip]
-}
-
 resource "aws_instance" "jenkins-instance" {
   ami             = "${data.aws_ami.amazon-linux-2.id}"
   instance_type   = "t2.medium"
